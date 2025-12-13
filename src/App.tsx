@@ -11,6 +11,7 @@ import { usePortfolio } from './hooks/usePortfolio';
 import { DEBUG_TRANSACTIONS } from './utils/debugData';
 import { Transaction } from './utils/finance';
 import { seoConfig } from './config/seo';
+import { GitHubCorner } from './components/GitHubCorner';
 
 const PortfolioDashboard = ({ initialData = [] }: { initialData?: Transaction[] }) => {
   // Apply SEO Config
@@ -99,6 +100,7 @@ const PortfolioDashboard = ({ initialData = [] }: { initialData?: Transaction[] 
 
   return (
     <div className="min-h-screen bg-secondary-50 font-sans text-gray-900 relative">
+      <GitHubCorner href="https://github.com/KarneAsada/tax-loss-harvester" />
       {/* Drag Overlay */}
       {isDragging && (
         <div className="fixed inset-0 bg-primary-500 bg-opacity-50 z-50 flex items-center justify-center border-4 border-primary-600 border-dashed m-4 rounded-xl backdrop-blur-sm pointer-events-none">

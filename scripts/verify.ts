@@ -11,6 +11,7 @@ Papa.parse(csvContent, {
     header: true,
     skipEmptyLines: true,
     complete: (results) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const data = results.data as any[];
         console.log(`Parsed ${data.length} rows`);
 

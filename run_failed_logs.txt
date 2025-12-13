@@ -1,0 +1,46 @@
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	﻿2025-12-13T23:12:28.6529715Z ##[group]Run cloudflare/wrangler-action@v3
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6530024Z with:
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6530366Z   apiToken: ***
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6530592Z   accountId: ***
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6530833Z   command: deploy --env staging
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6531062Z   environment: staging
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6531266Z   secrets: FINNHUB_API_KEY
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6531481Z   quiet: false
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6531660Z env:
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6531919Z   FINNHUB_API_KEY: ***
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.6532109Z ##[endgroup]
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.7465896Z ##[group]🔍 Checking for existing Wrangler installation
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:28.7507591Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npx --no-install wrangler --version
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:30.0000083Z 4.51.0
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:30.2228417Z ✅ No wrangler version specified, using pre-installed wrangler version 4.51.0
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:30.2229674Z ##[endgroup]
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:30.2230204Z ##[endgroup]
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:30.2232369Z ##[group]🔑 Uploading secrets...
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:30.2261171Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npx wrangler secret bulk --env staging
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:31.5086510Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:31.5088079Z  ⛅️ wrangler 4.51.0 (update available 4.54.0)
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:31.5089070Z ─────────────────────────────────────────────
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:31.5242521Z 🌀 Creating the secrets for the Worker "tax-loss-harvester-staging" 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3039455Z ✨ Successfully created secret for key: FINNHUB_API_KEY
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3040389Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3040812Z Finished processing secrets file:
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3065250Z ✨ 1 secrets successfully uploaded
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3589428Z ##[endgroup]
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3592021Z ##[group]🚀 Running Wrangler Commands
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:33.3610710Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npx wrangler deploy --env staging
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.2658973Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.2660840Z Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3282999Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3283956Z  ⛅️ wrangler 4.51.0 (update available 4.54.0)
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3284771Z ─────────────────────────────────────────────
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3550481Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3941895Z [31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mThe directory specified by the "assets.directory" field in your configuration file does not exist:[0m
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3942455Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3942690Z   /home/runner/work/tax-loss-harvester/tax-loss-harvester/dist
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3942939Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.3942946Z 
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.4755324Z 🪵  Logs were written to "/home/runner/.config/.wrangler/logs/wrangler-2025-12-13_23-12-34_102.log"
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.5416695Z ##[endgroup]
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.5436834Z ##[error]The process '/opt/hostedtoolcache/node/20.19.6/x64/bin/npx' failed with exit code 1
+Deploy to Staging	Deploy to Cloudflare Workers (Staging)	2025-12-13T23:12:34.5446224Z ##[error]🚨 Action failed
