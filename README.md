@@ -1,27 +1,31 @@
-# React + TypeScript + Vite
+# Tax Loss Harvester
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A client-side tool to analyze your stock portfolio for tax loss harvesting opportunities.
 
-Currently, two official plugins are available:
+## How it Works
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1.  **Export Data**: Export your "Positions" CSV from your brokerage account (e.g., Fidelity).
+2.  **Upload**: Drag and drop the CSV file into the Tax Loss Harvester dashboard.
+3.  **Analyze**: The app processes your positions locally and fetching current market prices to identify:
+    *   **Harvesting Candidates**: Positions with unrealized losses.
+    *   **Balancing Candidates**: Positions with unrealized gains.
+4.  **Simulate**: Toggle positions to see how harvesting or balancing would impact your net realized gain/loss for the year.
 
-## Expanding the ESLint configuration
+## Privacy & Security
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Your financial data never leaves your browser.**
 
-- Configure the top-level `parserOptions` property like this:
+*   **Client-Side Processing**: All CSV parsing and data analysis happens entirely within your web browser using JavaScript.
+*   **No Database**: We do not store your portfolio data on any server.
+*   **API Usage**: The app only communicates with external APIs (like Finnhub) to fetch *anonymous* real-time stock prices. It does not send your holding quantities or account value.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## Contributing
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Found a bug or have an idea for improvement?
+
+*   **Open a Pull Request**: Contributions are welcome! Please follow the [project guidelines](GEMINI.md).
+*   **Report an Issue**: Let us know about any bugs or feature requests on our [GitHub Issues page](https://github.com/KarneAsada/tax-loss-harvester/issues).
+
+## Development
+
+See [GEMINI.md](GEMINI.md) for development setup and contribution guidelines.

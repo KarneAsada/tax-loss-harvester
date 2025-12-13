@@ -6,22 +6,27 @@ export interface Env {
 
 export default {
     async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const _ctx = ctx;
         const url = new URL(request.url);
 
         // API Route for prices
         if (url.pathname.startsWith('/api/price')) {
             try {
                 return await handlePriceRequest(request, env);
-            } catch (e: any) {
-                return new Response(`Worker Error: ${e.message}\n${e.stack}`, { status: 500 });
+            } catch (e: unknown) {
+                const errorMessage = e instanceof Error ? e.message : String(e);
+                const errorStack = e instanceof Error ? e.stack : '';
+                return new Response(`Worker Error: ${errorMessage}\n${errorStack}`, { status: 500 });
             }
         }
 
         // Serve Static Assets (React App)
         try {
             return await env.ASSETS.fetch(request);
-        } catch (e: any) {
-            return new Response(`Asset Error: ${e.message}\n${e.stack}`, { status: 500 });
+        } catch (e: unknown) {
+            const errorMessage = e instanceof Error ? e.message : String(e);
+            return new Response(`Asset Error: ${errorMessage}`, { status: 500 });
         }
     },
 };
@@ -47,7 +52,7 @@ async function handlePriceRequest(request: Request, env: Env): Promise<Response>
     const rateLimitKey = `ratelimit:${currentMinute}`;
 
     const rateLimitCountStr = await env.FINNHUB_CACHE.get(rateLimitKey);
-    let rateLimitCount = rateLimitCountStr ? parseInt(rateLimitCountStr) : 0;
+    const rateLimitCount = rateLimitCountStr ? parseInt(rateLimitCountStr) : 0;
 
     if (rateLimitCount >= 60) {
         return new Response('Rate limit exceeded', { status: 429 });
@@ -65,7 +70,7 @@ async function handlePriceRequest(request: Request, env: Env): Promise<Response>
         return new Response(`Finnhub error: ${response.statusText}`, { status: response.status });
     }
 
-    const data: any = await response.json();
+    const data = await response.json() as { c?: number, [key: string]: unknown };
 
     if (data.c) {
         // 4. Cache Result (24h)

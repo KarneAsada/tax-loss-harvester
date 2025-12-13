@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+*logs.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -24,4 +25,7 @@ dist-ssr
 *.sw?
 notes.txt
 
-*.envGEMINI.md
+*.env
+.prod.env
+.stage.env
+GEMINI.md

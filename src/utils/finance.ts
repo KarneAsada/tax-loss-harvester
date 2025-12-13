@@ -8,6 +8,7 @@ export interface Transaction {
     quantity: Decimal;
     price: Decimal;
     amount: Decimal;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     original: any; // Relaxed type since it depends on the parser
 }
 
