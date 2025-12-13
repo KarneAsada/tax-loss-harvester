@@ -24,4 +24,7 @@ dist-ssr
 *.sw?
 notes.txt
 
-*.envGEMINI.md
+*.env
+.prod.env
+.stage.env
+GEMINI.md
