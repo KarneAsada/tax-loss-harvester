@@ -27,6 +27,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy --env staging
+          environment: staging
           # We pass the staging key as FINNHUB_API_KEY to the worker
           secrets: |
             FINNHUB_API_KEY
