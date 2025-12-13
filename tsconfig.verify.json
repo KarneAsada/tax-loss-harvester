@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "outDir": "dist-verify",
+        "skipLibCheck": true,
+        "types": [
+            "node",
+            "papaparse"
+        ]
+    },
+    "include": [
+        "scripts/verify.ts",
+        "src/utils/finance.ts"
+    ]
+}
