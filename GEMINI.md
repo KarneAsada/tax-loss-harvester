@@ -22,6 +22,18 @@
     ```
     Run this before committing to ensure code quality.
 
+### Workflow
+
+1.  **Branching**:
+    -   Create a new branch for every task or feature.
+    -   Use descriptive branch names (e.g., `feat/add-login`, `fix/header-styling`).
+
+2.  **Pull Requests**:
+    -   Open a Pull Request (PR) when your changes are complete.
+    -   Ensure all checks pass before merging.
+    -   Squash and merge is preferred to keep the history clean.
+
+
 ### Debug Route
 The application includes a debug route to test the UI with populated mock data without needing to upload a file.
 
