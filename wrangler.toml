@@ -20,3 +20,7 @@ binding = "ASSETS"
 routes = [
 	{ pattern = "harvester.stage.v.ibe.dev", custom_domain = true }
 ]
+
+[[env.staging.kv_namespaces]]
+binding = "FINNHUB_CACHE"
+id = "7dc672b79c45421dafcecd05b975b861"
