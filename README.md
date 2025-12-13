@@ -4,7 +4,7 @@ A client-side tool to analyze your stock portfolio for tax loss harvesting oppor
 
 ## How it Works
 
-1.  **Export Data**: Export your "Positions" CSV from your brokerage account (e.g., Fidelity).
+1.  **Export Data**: Export your "Positions" CSV from your brokerage account (only Robinhood is currently supported).
 2.  **Upload**: Drag and drop the CSV file into the Tax Loss Harvester dashboard.
 3.  **Analyze**: The app processes your positions locally and fetching current market prices to identify:
     *   **Harvesting Candidates**: Positions with unrealized losses.
@@ -23,9 +23,7 @@ A client-side tool to analyze your stock portfolio for tax loss harvesting oppor
 
 Found a bug or have an idea for improvement?
 
-*   **Open a Pull Request**: Contributions are welcome! Please follow the [project guidelines](GEMINI.md).
+*   **Open a Pull Request**: Contributions are welcome! 
 *   **Report an Issue**: Let us know about any bugs or feature requests on our [GitHub Issues page](https://github.com/KarneAsada/tax-loss-harvester/issues).
 
-## Development
 
-See [GEMINI.md](GEMINI.md) for development setup and contribution guidelines.
