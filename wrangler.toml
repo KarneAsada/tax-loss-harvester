@@ -24,3 +24,8 @@ routes = [
 [[env.staging.kv_namespaces]]
 binding = "FINNHUB_CACHE"
 id = "7dc672b79c45421dafcecd05b975b861"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+
