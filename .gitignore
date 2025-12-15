@@ -26,7 +26,6 @@ dist-ssr
 notes.txt
 
 *.env
-.prod.env
-.stage.env
-GEMINI.md
+# *.env is already here, but adding .dev.vars explicit for Wrangler
+.dev.vars
 .wrangler
