@@ -51,6 +51,11 @@
     -   Push the branch and use the GitHub CLI or web interface to create the PR.
     -   Return a link to the PR in the chat.
 
+3.  **Git Standards**:
+    -   **CRITICAL**: NEVER use `git add -f` or force add files that are in `.gitignore`.
+    -   If a file is ignored, YOU MUST STOP and ask the user for clarification.
+    -   Respect the project's ignore rules at all times.
+
 
 ### Debug Route
 The application includes a debug route to test the UI with populated mock data without needing to upload a file.
