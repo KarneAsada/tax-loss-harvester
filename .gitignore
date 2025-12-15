@@ -29,3 +29,4 @@ notes.txt
 .prod.env
 .stage.env
 GEMINI.md
+.wrangler
