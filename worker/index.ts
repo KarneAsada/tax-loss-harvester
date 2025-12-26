@@ -10,6 +10,20 @@ export default {
         const _ctx = ctx;
         const url = new URL(request.url);
 
+        // Version endpoint
+        if (url.pathname === '/__version') {
+            // Read version from package.json
+            // In production, this will be bundled; in dev, it will be read from disk
+            const version = await import('../package.json').then(m => m.default.version);
+
+            return new Response(JSON.stringify({
+                version,
+                timestamp: new Date().toISOString(),
+            }), {
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
         // API Route for prices
         if (url.pathname.startsWith('/api/price')) {
             try {
@@ -36,12 +50,14 @@ async function handlePriceRequest(request: Request, env: Env): Promise<Response>
     const symbol = url.searchParams.get('symbol');
 
     if (!symbol) {
+        console.error('Price lookup failed: Missing symbol parameter');
         return new Response('Missing symbol parameter', { status: 400 });
     }
 
     // 1. Check Cache
     const cachedPrice = await env.FINNHUB_CACHE.get(symbol);
     if (cachedPrice) {
+        console.log(`Price lookup [CACHE]: ${symbol} = ${cachedPrice}`);
         return new Response(JSON.stringify({ price: parseFloat(cachedPrice), source: 'cache' }), {
             headers: { 'Content-Type': 'application/json' },
         });
@@ -55,6 +71,7 @@ async function handlePriceRequest(request: Request, env: Env): Promise<Response>
     const rateLimitCount = rateLimitCountStr ? parseInt(rateLimitCountStr) : 0;
 
     if (rateLimitCount >= 60) {
+        console.warn(`Price lookup [RATE LIMIT]: ${symbol} failed due to rate limiting`);
         return new Response('Rate limit exceeded', { status: 429 });
     }
 
@@ -63,16 +80,19 @@ async function handlePriceRequest(request: Request, env: Env): Promise<Response>
 
 
     // 3. Fetch from Finnhub
+    console.log(`Price lookup [FETCH]: Fetching ${symbol} from Finnhub...`);
     const finnhubUrl = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${env.FINNHUB_API_KEY}`;
     const response = await fetch(finnhubUrl);
 
     if (!response.ok) {
+        console.error(`Price lookup [ERROR]: Finnhub error for ${symbol}: ${response.statusText}`);
         return new Response(`Finnhub error: ${response.statusText}`, { status: response.status });
     }
 
     const data = await response.json() as { c?: number, [key: string]: unknown };
 
     if (data.c) {
+        console.log(`Price lookup [SUCCESS]: ${symbol} = ${data.c}`);
         // 4. Cache Result (24h)
         await env.FINNHUB_CACHE.put(symbol, data.c.toString(), { expirationTtl: 86400 });
 
@@ -80,6 +100,7 @@ async function handlePriceRequest(request: Request, env: Env): Promise<Response>
             headers: { 'Content-Type': 'application/json' },
         });
     } else {
+        console.warn(`Price lookup [NO DATA]: Finnhub returned no price for ${symbol}`, data);
         return new Response(JSON.stringify(data), {
             headers: { 'Content-Type': 'application/json' },
         });
