@@ -48,6 +48,54 @@ A client-side tool to analyze your stock portfolio for tax loss harvesting oppor
 *   **No Database**: We do not store your portfolio data on any server.
 *   **API Usage**: The app only communicates with external APIs (like Finnhub) to fetch *anonymous* real-time stock prices. It does not send your holding quantities or account value.
 
+## Versioning & Deployment
+
+### Automatic Releases
+
+Every merge to the `main` branch automatically:
+- Deploys to staging (`https://harvester.stage.v.ibe.dev`)
+- Bumps the patch version in `package.json`
+- Creates a git tag (e.g., `v1.2.3`)
+- Generates a GitHub release with changelog
+
+### Checking Deployed Versions
+
+To check which version is deployed in each environment:
+
+**Staging:**
+```bash
+curl https://harvester.stage.v.ibe.dev/__version
+```
+
+**Production:**
+```bash
+curl https://harvester.v.ibe.dev/__version
+```
+
+### Comparing Environments
+
+To compare staging vs production versions, run the "Compare Versions" workflow in GitHub Actions:
+1. Go to the Actions tab
+2. Select "Compare Versions"
+3. Click "Run workflow"
+
+The workflow will display which version is deployed in each environment and whether they're in sync.
+
+### Promoting to Production
+
+Production deployments are manual. To promote staging to production:
+1. Go to the Actions tab
+2. Select "Promote to Production"
+3. Click "Run workflow"
+
+### Reverting Production
+
+If a production deployment needs to be rolled back:
+1. Go to the Actions tab
+2. Select "Revert Promotion"
+3. Click "Run workflow"
+4. (Optional) Enter a specific version tag to revert to. If left blank, it will automatically revert to the version immediately preceding the current production version.
+
 ## Contributing
 
 Found a bug or have an idea for improvement?
