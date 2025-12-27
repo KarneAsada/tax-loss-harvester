@@ -1,0 +1,78 @@
+name: Revert Promotion
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'Specific version tag to revert to (e.g., v1.2.3). If omitted, will revert to the version immediately preceding the current production version.'
+        required: false
+        type: string
+
+jobs:
+  revert:
+    runs-on: ubuntu-latest
+    name: Revert Production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all tags
+
+      - name: Determine Target Version
+        id: target
+        run: |
+          if [ -n "${{ github.event.inputs.version_tag }}" ]; then
+            echo "Using specified tag: ${{ github.event.inputs.version_tag }}"
+            echo "tag=${{ github.event.inputs.version_tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "No tag specified. Determining current production version..."
+            CURRENT_VERSION_JSON=$(curl -s https://harvester.v.ibe.dev/__version)
+            CURRENT_VERSION_RAW=$(echo $CURRENT_VERSION_JSON | jq -r '.version')
+            
+            if [ -z "$CURRENT_VERSION_RAW" ] || [ "$CURRENT_VERSION_RAW" == "null" ]; then
+              echo "Error: Could not determine current production version."
+              exit 1
+            fi
+            
+            CURRENT_TAG="v$CURRENT_VERSION_RAW"
+            echo "Current version: $CURRENT_VERSION_RAW ($CURRENT_TAG)"
+            
+            # Find the tag immediately preceding the current one
+            # We use git log to find the release commit and then look at its parent's tags
+            PREVIOUS_TAG=$(git describe --tags --abbrev=0 "$CURRENT_TAG^" 2>/dev/null || echo "")
+            
+            if [ -z "$PREVIOUS_TAG" ]; then
+              echo "Error: Could not find a previous tag."
+              exit 1
+            fi
+            
+            echo "Determined previous tag: $PREVIOUS_TAG"
+            echo "tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout Target Version
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.target.outputs.tag }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.11.1'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers (Production)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          secrets: |
+            FINNHUB_API_KEY
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
